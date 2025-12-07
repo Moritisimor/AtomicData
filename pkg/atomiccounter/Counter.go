@@ -20,6 +20,10 @@ func At(i int64) *AtomicCounter {
 	return &temp
 }
 
+func (c *AtomicCounter) Get() int64 {
+	return c.internalcounter.Load()
+}
+
 // Method for incrementing the counter.
 // It will return the new value which the counter holds.
 func (c *AtomicCounter) Increment() int64 {

@@ -9,7 +9,7 @@ import (
 
 // Test for determining if the Atomic Slice is really thread-safe
 func TestSlice(t *testing.T) {
-	N := 10000
+	N := 50000
 	collection := atomicslice.From([]float32{})
 	wg := sync.WaitGroup{}
 	for i := range(N) {
