@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"AtomicData/pkg/atomicslice"
+	"github.com/Moritisimor/AtomicData/pkg/atomicslice"
 	"slices"
 	"sync"
 	"testing"

@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"AtomicData/pkg/atomiccounter"
+	"github.com/Moritisimor/AtomicData/pkg/atomiccounter"
 	"sync"
 	"testing"
 )
@@ -14,19 +14,15 @@ func TestCounter(t *testing.T) {
 	ac := atomiccounter.New()
 
 	for range(N) {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
+		wg.Go(func() {
 			ac.Increment()
-		}()
+		})
 	}
 
 	for range(I) {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
+		wg.Go(func() {
 			ac.Decrement()
-		}()
+		})
 	}
 
 	wg.Wait()
