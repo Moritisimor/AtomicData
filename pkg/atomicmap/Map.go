@@ -29,6 +29,13 @@ func From[K comparable, V any](m map[K]V) AtomicMap[K, V] {
 	}
 }
 
+// Method for Clearing the Map.
+func (m *AtomicMap[K, V]) Clear() {
+	m.mutex.Lock()
+	defer m.mutex.Unlock()
+	m.internalmap = map[K]V{}
+}
+
 // Method for getting a value with a key.
 // Returns V and bool, where V is the value of the key and bool represents if access was successful or not.
 func (m *AtomicMap[K, V]) Get(key K) (V, bool) {
@@ -55,6 +62,8 @@ func (m *AtomicMap[K, V]) Set(key K, value V) {
 // Similar to the regular Set method, but keys are treated as immutable.
 // Returns a bool. True if the key was set, else false.
 func (m *AtomicMap[K, V]) SetIfNotExists(key K, value V) bool {
+	m.mutex.Lock()
+	defer m.mutex.Unlock()
 	if _, ok := m.internalmap[key]; ok {
 		return false
 	}
@@ -88,6 +97,12 @@ func (m *AtomicMap[K, V]) Update(key K, value V) bool {
 	}
 
 	return false
+}
+
+func (m *AtomicMap[K, V]) Len() int {
+	m.mutex.RLock()
+	defer m.mutex.RUnlock()
+	return len(m.internalmap)
 }
 
 // Method for deleting value with a key.

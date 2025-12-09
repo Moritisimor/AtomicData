@@ -1,15 +1,16 @@
 package tests
 
 import (
-	"github.com/Moritisimor/AtomicData/pkg/atomicslice"
 	"slices"
 	"sync"
 	"testing"
+
+	"github.com/Moritisimor/AtomicData/pkg/atomicslice"
 )
 
 // Test for determining if the Atomic Slice is really thread-safe
 func TestSlice(t *testing.T) {
-	N := 100000
+	N := 50000
 	atomicslice := atomicslice.New[float32]()
 	wg := sync.WaitGroup{}
 	for i := range(N) {

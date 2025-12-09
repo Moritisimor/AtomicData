@@ -59,6 +59,26 @@ func (synced_slice *SyncedSlice[T]) Get(index int) (T, bool) {
 	return synced_slice.internal_slice[index], true
 }
 
+// Method for clearing the internal slice which the struct holds.
+func (synced_slice *SyncedSlice[T]) Clear() {
+	synced_slice.mutex.Lock()
+	defer synced_slice.mutex.Unlock()
+	synced_slice.internal_slice = []T{}
+}
+
+// Method for deleting an entry at an index.
+// Returns bool, which reports if the delete went well or not.
+func (synced_slice *SyncedSlice[T]) Delete(index int) bool {
+	synced_slice.mutex.Lock()
+	defer synced_slice.mutex.Unlock()
+	if len(synced_slice.internal_slice) <= index || index < 0 {
+		return false
+	}
+
+	synced_slice.internal_slice = slices.Delete(synced_slice.internal_slice, index - 1, index)
+	return true
+}
+
 // Method for getting the length of the slice.
 func (synced_slice *SyncedSlice[T]) Len() int {
 	synced_slice.mutex.RLock()
