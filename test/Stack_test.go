@@ -8,9 +8,10 @@ import (
 	"github.com/Moritisimor/AtomicData/pkg/atomiccounter"
 )
 
+// Test for determining if the Stack works as it should.
 func TestStack(t *testing.T) {
-	I := 500000
-	D := 500000
+	I := 2000000
+	D := 1000000
 
 	stack := atomicstack.New[int]()
 	counter := atomiccounter.New()
@@ -31,9 +32,8 @@ func TestStack(t *testing.T) {
 	}
 
 	wg.Wait()
+	t.Logf("\nPushes: %d\nPops: %d\nExpected: %d\nGot: %d\n", I, D, I - D, stack.Len())
 	if stack.Len() != I - D {
-		t.Error("The Stack is not as large as expected. Either the atomic counter failed or the stack did.")
-	} else {
-		t.Logf("Pushes: %d\nPops: %d\nExpected: %d\nGot: %d\n", I, D, I - D, stack.Len())
+		t.Error("The stack is not as large as expected! Possible Race!")
 	}
 }

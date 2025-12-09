@@ -21,7 +21,7 @@ func (synced_slice *SyncedSlice[T]) Append(data T) {
 }
 
 // Method for creating a new empty slice.
-func New[T any](s []T) SyncedSlice[T] {
+func New[T any]() SyncedSlice[T] {
 	return SyncedSlice[T]{
 		internal_slice: []T{},
 		mutex: 			sync.RWMutex{},
