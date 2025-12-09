@@ -20,7 +20,7 @@ func (synced_slice *SyncedSlice[T]) Append(data T) {
 	synced_slice.internal_slice = append(synced_slice.internal_slice, data)
 }
 
-// Method for creating a new empty slice.
+// Function for creating a new empty slice.
 func New[T any]() SyncedSlice[T] {
 	return SyncedSlice[T]{
 		internal_slice: []T{},
@@ -28,7 +28,8 @@ func New[T any]() SyncedSlice[T] {
 	}
 }
 
-// Method for creating a Synced Slice from an existing slice.
+// Function for creating a Synced Slice from an existing slice.
+// It is generally not recommended to use an existing slice as a parameter, as this allows for circumventing mutex locks.
 func From[T any](s []T) SyncedSlice[T] {
 	return SyncedSlice[T]{
 		internal_slice: s,
