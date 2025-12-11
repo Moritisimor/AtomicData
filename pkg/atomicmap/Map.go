@@ -1,3 +1,5 @@
+// The atomicmap package contains functions, methods and types for the AtomicMap type.
+// AtomicMaps themselves are thread-safe map implementations.
 package atomicmap
 
 import (

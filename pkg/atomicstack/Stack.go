@@ -1,3 +1,5 @@
+// The atomicstack package contains functions, methods and types for using AtomicStacks.
+// An AtomicStack is a thread-safe Last-in First-out stack implementation.
 package atomicstack
 
 import (

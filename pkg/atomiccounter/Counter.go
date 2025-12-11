@@ -1,3 +1,5 @@
+// The atomiccounter package provides the AtomicCounter type itself as well as functions and methods for interaction.
+// The AtomicCounter type is a counter which uses atomic 64-bit integers to ensure thread-safety and high performance.
 package atomiccounter
 
 import "sync/atomic"

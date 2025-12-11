@@ -1,3 +1,5 @@
+// The atomicslice package provides all necessary types, methods and functions for using AtomicSlices.
+// An AtomicSlice is a thread-safe slice implemenation.
 package atomicslice
 
 import (

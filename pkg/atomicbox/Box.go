@@ -1,3 +1,5 @@
+// The atomicbox package contains types, methods and functions for instantiating and interacting with AtomicBoxes.
+// The AtomicBox type itself is a thread-safe pointer which uses mutexes.
 package atomicbox
 
 import "sync"
