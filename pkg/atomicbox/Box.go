@@ -7,8 +7,8 @@ type AtomicBox[T any] struct {
 	mutex sync.RWMutex
 }
 
-func New[T any](t T) AtomicBox[T] {
-	return AtomicBox[T]{
+func New[T any](t T) *AtomicBox[T] {
+	return &AtomicBox[T]{
 		val: t,
 	}
 }
