@@ -12,8 +12,8 @@ type AtomicStack[T any] struct {
 }
 
 // Creates a new Thread-Safe Stack.
-func New[T any]() AtomicStack[T] {
-	return AtomicStack[T]{}
+func New[T any]() *AtomicStack[T] {
+	return &AtomicStack[T]{}
 }
 
 // Method for getting the length of the Stack.

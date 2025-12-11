@@ -5,7 +5,6 @@ import (
 	"testing"
 
 	"github.com/Moritisimor/AtomicData/pkg/atomicstack"
-	"github.com/Moritisimor/AtomicData/pkg/atomiccounter"
 )
 
 // Test for determining if the Stack works as it should.
@@ -14,20 +13,17 @@ func TestStack(t *testing.T) {
 	D := 1000000
 
 	stack := atomicstack.New[int]()
-	counter := atomiccounter.New()
 	wg := sync.WaitGroup{}
 
 	for range I {
 		wg.Go(func() {
-			stack.Push(int(counter.Get()))
-			counter.Increment()
+			stack.Push(int(I))
 		})
 	}
 
 	for range D {
 		wg.Go(func() {
 			stack.Pop()
-			counter.Increment()
 		})
 	}
 

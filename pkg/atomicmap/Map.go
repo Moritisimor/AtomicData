@@ -13,18 +13,20 @@ type AtomicMap[K comparable, V any] struct {
 }
 
 // Creates a new empty, thread-safe map.
-func New[K comparable, V any]() AtomicMap[K, V] {
-	return AtomicMap[K, V]{
+// It returns a pointer to the AtomicMap-object in the heap.
+func New[K comparable, V any]() *AtomicMap[K, V] {
+	return &AtomicMap[K, V]{
 		internalmap: map[K]V{},
 		mutex:        sync.RWMutex{},
 	}
 }
 
 // Creates a new thread-safe map from an existing map.
-// It is not recommended to use an existing map as a parameter, since this could allow for circumventing mutex locks.
-func From[K comparable, V any](m map[K]V) AtomicMap[K, V] {
-	return AtomicMap[K, V]{
-		internalmap: m,
+// The supplied parameter will be shallowly cloned, as such, storing pointers is not recommended.
+// If you must store pointers, it is recommended to use AtomicBox
+func From[K comparable, V any](m map[K]V) *AtomicMap[K, V] {
+	return &AtomicMap[K, V]{
+		internalmap: maps.Clone(m),
 		mutex:        sync.RWMutex{},
 	}
 }
