@@ -78,9 +78,9 @@ myBox.WithLock(func(inner *string) {
 })
 ```
 
-There is no safe counterpart to this as this is always a really bad pattern.
+There is no safe counterpart to this as this is always a terrible pattern.
 
 If you mean to clone or copy the value which the pointer stores, then that depends on the type itself.
 
 ## Any other footguns?
-Probably, these are just the footguns I discovered. If you discover any more, please let me know by posting an issue!
+Probably, these are just the footguns I discovered. If you discover more, please let me know by posting an issue!
