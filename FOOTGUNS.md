@@ -65,6 +65,29 @@ myAtomicMap := atomicmap.From(map[string]int {
 // No outside-living reference.
 ```
 
+## Ignoring Read-Only Locks
+A Read-only lock is only a suggestion, nothing the compiler enforces.
+
+### Unsafe
+```go
+myBox := atomicbox.New("Hello World")
+
+myBox.WithReadLock(func(inner *String) {
+    inner = "Goodbye World" // Ignoring read-only lock
+}) 
+```
+
+For mutating access, just use Withlock
+
+### Safe
+```go
+myBox := atomicbox.New("Hello World")
+
+myBox.WithLock(func(inner *String) {
+    inner = "Goodbye World" // Safe now
+}) 
+```
+
 ## Leaked AtomicBox Pointers
 The references which AtomicBox stores can easily be leaked to an outside scope.
 
