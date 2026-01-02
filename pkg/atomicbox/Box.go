@@ -9,7 +9,7 @@ import "sync"
 // However, AtomicBox can be used to build almost any other thread-safe structure if you want to.
 type AtomicBox[T any] struct {
 	val   T
-	mutex sync.Mutex
+	mutex sync.RWMutex
 }
 
 // New method initiates a new AtomicBox with its value being its only parameter.
@@ -27,5 +27,14 @@ func New[T any](t T) *AtomicBox[T] {
 func (box *AtomicBox[T]) WithLock(fn func(inner *T)) {
 	box.mutex.Lock()
 	defer box.mutex.Unlock()
+	fn(&box.val)
+}
+
+// WithReadLock Method works similarly to the regular WithLock except that other threads may read, but not write.
+// It is important to note that mutations can still happen, however, they shouldn't, as this may cause data races.
+// Only use this method if fn does not mutate inner.
+func (box *AtomicBox[T]) WithReadLock(fn func(inner *T)) {
+	box.mutex.RLock()
+	defer box.mutex.RUnlock()
 	fn(&box.val)
 }

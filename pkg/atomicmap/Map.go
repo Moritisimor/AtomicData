@@ -78,7 +78,7 @@ func (m *AtomicMap[K, V]) SetIfNotExists(key K, value V) bool {
 
 // Clone Method for cloning the internal map.
 // It will return the internal map, which the struct stores.
-// The map is copied-by-value, not a reference.
+// The map is copied-by-value, not by reference.
 // Since the clone is shallow, storing pointers is not recommended as those will still point to the same object.
 func (m *AtomicMap[K, V]) Clone() map[K]V {
 	m.mutex.RLock()
